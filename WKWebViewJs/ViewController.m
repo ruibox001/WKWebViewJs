@@ -32,7 +32,6 @@
 
 - (void)clickWebView {
     BaseWKWebViewController *vc = [[BaseWKWebViewController alloc] init];
-    vc.urlString = @"http://192.168.1.79:8080";
     [self.navigationController pushViewController:vc animated:YES];
 }
 

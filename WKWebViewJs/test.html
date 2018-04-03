@@ -1,15 +1,8 @@
 <!DOCTYPE html>
-<html>
 <head>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <title>系统简介</title>
-    <link rel="stylesheet" type="text/css" href="../../css/navstyle.css">
-    <link rel="stylesheet" type="text/css" href="../../css/nav.css">
-    <link rel="icon" type="image/x-icon" href="../../img/favicon.ico">
-
 </head>
 <body>
 
@@ -41,9 +34,14 @@
 
 <script>
     function turnPage() {
-        window.webkit.messageHandlers.gotoLogin.postMessage({"sex":"men","name":"wangshengyuan"});
+        if (window.webkit){
+            window.webkit.messageHandlers.gotoLogin.postMessage({"sex":"men","name":"wangshengyuan"});
+        }
+    }
+    function alertMyName(name) {
+        alert(name);
+        return "haode"
     }
 </script>
-
 </body>
 </html>

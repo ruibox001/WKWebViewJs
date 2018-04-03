@@ -39,8 +39,6 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    [self addNavigationTitle:_titleString];
-    
     WEAKSELF
     [self addNavigationLeft:nil clickBlock:^{
         if ([weakSelf.wkwebView canGoBack]) {
@@ -53,9 +51,15 @@
     [self.view.layer addSublayer:self.changeColorLayer];
     [self initWKWebView];
     
-    [self addNavigationRight:@"RunJs" clickBlock:^{
-        [weakSelf runJs:@"window.webkit.messageHandlers.gotoLogin.postMessage({'sex':'mens','name':'wangshengyuans'});" handler:nil];
+    [self addNavigationRight:@"JsMethod" clickBlock:^{
+        [weakSelf runJs:@"alertMyName('我们')" handler:^(id _Nullable i, NSError * _Nullable error) {
+            DLog(@"error: %@ - %@",error,i);
+        }];
     }];
+    
+//    [self addNavigationRight:@"RunJs" clickBlock:^{
+//        [weakSelf runJs:@"window.webkit.messageHandlers.gotoLogin.postMessage({'sex':'mens','name':'wangshengyuans'});" handler:nil];
+//    }];
 }
 
 - (void)initWKWebView{
@@ -97,18 +101,6 @@
     [self request];
 }
 
-- (void)setTitleString:(NSString *)titleString
-{
-    _titleString = titleString;
-    [self addNavigationTitle:titleString];
-}
-
-- (void)setUrlString:(NSString *)urlString
-{
-    // 带上登录Token在这里处理
-    _urlString = urlString;
-}
-
 - (void)dealloc
 {
     for (NSString *jsMethod in self.jsMethodArray) {
@@ -131,10 +123,10 @@
         }
     } else if ([keyPath isEqualToString:@"title"]){
         DLog(@"title >> %@  --  %@",self.wkwebView.title,change[@"new"]);
-        if (self.titleString == nil || self.titleString.length == 0) {
-            NSString *title = [NSString stringWithFormat:@"%@", change[@"new"]];
-            self.titleString = title;
-        }
+        
+        NSString *title = [NSString stringWithFormat:@"%@", change[@"new"]];
+        [self addNavigationTitle:title];
+        
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -144,9 +136,9 @@
 // 刷新
 - (void)request
 {
-    NSURL* url = [NSURL URLWithString:self.urlString];//创建URL
-    NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
-    [self.wkwebView loadRequest:request];//加载
+    NSString *urlStr = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"html"];
+    NSString *html = [NSString stringWithContentsOfFile:urlStr encoding:NSUTF8StringEncoding error:nil];
+    [self.wkwebView loadHTMLString:html baseURL:nil];
 }
 
 #pragma mark - WKNavigationDelegate

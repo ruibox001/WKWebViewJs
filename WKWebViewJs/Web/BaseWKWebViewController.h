@@ -8,17 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSUInteger {
-    STKLoadURLTypeDefault,      //默认不显示
-    STKLoadURLTypeShowShare     //导航栏右侧分享
-} STKLoadURLType;
-
 @interface BaseWKWebViewController : UIViewController
 
-@property (strong, nonatomic) NSString *titleString;
-
-@property (strong, nonatomic) NSString *urlString;
-
-@property (assign, nonatomic) STKLoadURLType urlType;
 
 @end
