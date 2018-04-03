@@ -52,7 +52,7 @@
     [self initWKWebView];
     
     [self addNavigationRight:@"JsMethod" clickBlock:^{
-        [weakSelf runJs:@"alertMyName('我们')" handler:^(id _Nullable i, NSError * _Nullable error) {
+        [weakSelf runJs:@"alertMyName('苹果原生发过来的消息')" handler:^(id _Nullable i, NSError * _Nullable error) {
             DLog(@"error: %@ - %@",error,i);
         }];
     }];
@@ -66,7 +66,7 @@
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     
-    self.jsMethodArray = @[@"gotoLogin"];
+    self.jsMethodArray = @[@"jsControl"];
     
     //注册供js调用的方法
     _userContentController = [[WKUserContentController alloc] init];
@@ -168,9 +168,14 @@
         return;
     }
     
-    if ([message.name isEqualToString:@"gotoLogin"]) {
-        
+    NSMutableString *str = [[NSMutableString alloc] init];
+    for (NSString *key in dict) {
+        [str appendString:[NSString stringWithFormat:@"%@ > %@",key,dict[key]]];
+        [str appendString:@"\n"];
     }
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:message.name message:str preferredStyle:UIAlertControllerStyleAlert];
+    [controller addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 //兼容alert

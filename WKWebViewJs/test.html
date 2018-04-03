@@ -2,46 +2,34 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <title>系统简介</title>
+        <title>js和原生交互</title>
 </head>
 <body>
-
-<div id="nav">APP上传下载管理系统</div>
-<div id="title1">应用发布，仅需两步</div>
-<div id="msg1">
-    将应用上传到网站，自动生成下载地址和二维码
-</div>
-<div id="msg2">
-    扫一扫二维码，或直接打开下载地址，即可安装
-</div>
-
-<div id="title2">
-    主要功能
-    <ul>
-        <li>支持安卓和iOS企业应用分发功能</li>
-        <li>上传发布，自动生成二维及下载地址</li>
-        <li>适合市场推广，迅速抢占用户市场</li>
-        <li>支持window,linux,ubuntu等主流服务器</li>
-        <li>中小型企业自主管理企业应用及应用内侧</li>
-        <li>解除对fir.im和蒲公英的依赖，高效稳定</li>
-        <li>价格优惠，欢迎咨询QQ:<a id="qqcontent" href="tencent://message/?Menu=yes&uin=282834524" target="_blank" >1542997454</a></li>
-    </ul>
-</div>
-
-<div id="btns">
-    <a href="javascript:void(0);" onclick="turnPage()">立即登录</a>
-</div>
-
-<script>
-    function turnPage() {
-        if (window.webkit){
-            window.webkit.messageHandlers.gotoLogin.postMessage({"sex":"men","name":"wangshengyuan"});
+    
+    <div id="msg2">
+        <p id="countent">html原始数据</p>
+    </div>
+    
+    <div id="btns">
+        <a href="javascript:void(0);" onclick="turnPage()">调用原生</a>
+    </div>
+    
+    <script>
+        
+        function turnPage() {
+            if (window.webkit){ //苹果平台
+                window.webkit.messageHandlers.jsControl.postMessage({"flatfrom":"苹果","name":"wangshengyuan"});
+            }
+            else { //安卓平台
+                window.jsControl.nativeMethod('安卓','wangshengyuan');
+            }
         }
-    }
-    function alertMyName(name) {
-        alert(name);
-        return "haode"
-    }
-</script>
+    
+        function alertMyName(name) {
+            document.getElementById("countent").innerHTML="原生调用："+name;
+            return "原生调用网页方法后返回参数了";
+        }
+    
+    </script>
 </body>
 </html>
