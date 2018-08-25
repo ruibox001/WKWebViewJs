@@ -1,15 +1,16 @@
 //
-//  BaseWKWebViewController.m
-//  Tronker
+//  STKBaseWKWebViewController.m
+//  WKWebViewJs
 //
-//  Created by soffice-Jimmy on 2017/4/12.
-//  Copyright © 2017年 Shenzhen Soffice Software. All rights reserved.
+//  Created by 王声远 on 2018/8/25.
+//  Copyright © 2018年 王声远. All rights reserved.
 //
 
-#import "BaseWKWebViewController.h"
+#import "STKBaseWKWebViewController.h"
 #import <WebKit/WebKit.h>
 #import "UIViewController+NavigationTool.h"
 #import "WeakScriptMessageDelegate.h"
+#import "JSBase.h"
 
 #define WEAKSELF typeof(self) __weak weakSelf = self;
 #define phoneWidth  [[UIScreen mainScreen] bounds].size.width
@@ -22,22 +23,28 @@
 #define DLog(...)
 #endif
 
-@interface BaseWKWebViewController() <WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
+#define SuppressPerformSelectorLeakWarning(Stuff) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+Stuff; \
+_Pragma("clang diagnostic pop") \
+} while (0)
 
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@interface STKBaseWKWebViewController() <WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
+
 @property (strong, nonatomic) WKWebView                 *wkwebView;
 @property (strong, nonatomic) WKUserContentController   *userContentController;
-
-//进度条
-@property (strong, nonatomic) CAGradientLayer    *changeColorLayer;
-@property (strong, nonatomic) NSArray               *jsMethodArray;
+@property (strong, nonatomic) NSArray                   *jsMethodArray;
 
 @end
 
-@implementation BaseWKWebViewController
+@implementation STKBaseWKWebViewController
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    
+    [self addNavigationTitle:@"交互范例"];
     
     WEAKSELF
     [self addNavigationLeft:@"Back" clickBlock:^{
@@ -48,15 +55,14 @@
         }
     }];
     
-    [self.view.layer addSublayer:self.changeColorLayer];
     [self initWKWebView];
     
-    [self addNavigationRight:@"JsMethod" clickBlock:^{
-        [weakSelf runJs:@"alertMyName('苹果原生发过来的消息')" handler:^(id _Nullable i, NSError * _Nullable error) {
-            DLog(@"error: %@ - %@",error,i);
+    [self addNavigationLeft:@"CallJs" clickBlock:^{
+        [weakSelf runJs:@"callBackFunc({'msg':'原色执行完成回调JS','code':'200'})" handler:^(id _Nullable i, NSError * _Nullable error) {
+            DLog(@"native call js finish callback: error=%@ - obj=%@",error,i);
         }];
     }];
-
+    
 }
 
 - (void)initWKWebView{
@@ -77,10 +83,9 @@
     configuration.preferences.javaScriptEnabled = YES;
     configuration.preferences.javaScriptCanOpenWindowsAutomatically = YES;
     
-
     // 测试嵌入JS
-//    WKUserScript *script = [[WKUserScript alloc] initWithSource:@"var param = {'key':'value'}; if(window.webkit){window.alert('test alert'); window.webkit.messageHandlers.gotoLogin.postMessage(param)}" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-//    [_userContentController addUserScript:script];
+    //    WKUserScript *script = [[WKUserScript alloc] initWithSource:@"var param = {'key':'value'}; if(window.webkit){window.alert('test alert'); window.webkit.messageHandlers.gotoLogin.postMessage(param)}" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    //    [_userContentController addUserScript:script];
     
     self.wkwebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, phoneWidth, phoneHeight) configuration:configuration];
     self.wkwebView.backgroundColor = [UIColor clearColor];
@@ -92,9 +97,6 @@
     }
     
     [self.view addSubview:self.wkwebView];
-    
-    [self.wkwebView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];//注册observer 拿到加载进度
-    [self.wkwebView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];//注册observer 拿到标题
     [self request];
 }
 
@@ -103,37 +105,12 @@
     for (NSString *jsMethod in self.jsMethodArray) {
         [[self.wkwebView configuration].userContentController removeScriptMessageHandlerForName:jsMethod];
     }
-    [self.wkwebView removeObserver:self forKeyPath:@"estimatedProgress"];
-    [self.wkwebView removeObserver:self forKeyPath:@"title"];
-}
-
-// 监听事件处理进度和网页标题
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
-    
-    if([keyPath isEqualToString:@"estimatedProgress"]){
-        self.changeColorLayer.hidden = NO;
-        CGFloat  progress = [change[@"new"] floatValue];
-        DLog(@"progress >> %f",progress);
-        self.changeColorLayer.frame = CGRectMake(0, 64, phoneWidth * progress,  4);
-        if (progress == 1.0) {
-            self.changeColorLayer.hidden =YES;
-        }
-    } else if ([keyPath isEqualToString:@"title"]){
-        DLog(@"title >> %@  --  %@",self.wkwebView.title,change[@"new"]);
-        
-        NSString *title = [NSString stringWithFormat:@"%@", change[@"new"]];
-        [self addNavigationTitle:title];
-        
-    }
-    else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
 }
 
 // 刷新
 - (void)request
 {
-    NSString *urlStr = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"html"];
+    NSString *urlStr = [[NSBundle mainBundle] pathForResource:@"normal" ofType:@"html"];
     NSString *html = [NSString stringWithContentsOfFile:urlStr encoding:NSUTF8StringEncoding error:nil];
     [self.wkwebView loadHTMLString:html baseURL:nil];
 }
@@ -158,21 +135,50 @@
 //实现注册的供js调用的oc方法 （如果这里没调用，请检查后台JS window.webkit.messageHandlers.调用名称.postMessage是否调用）
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
     
-    DLog(@"js调用的oc方法了: \n 参数名=%@\n 参数body=%@",message.name, message.body);
-
-    NSDictionary *dict = message.body;
-    if (dict == nil) {
-        return;
-    }
+    DLog(@"js调用的原生方法了: \n 控制手柄=%@\n 参数=%@",message.name, message.body);
     
-    NSMutableString *str = [[NSMutableString alloc] init];
-    for (NSString *key in dict) {
-        [str appendString:[NSString stringWithFormat:@"%@ > %@",key,dict[key]]];
-        [str appendString:@"\n"];
+    if ([message.body isKindOfClass:[NSDictionary class]]) {
+        
+        NSDictionary* dic = message.body;
+        if (!dic || !dic.allKeys || dic.allKeys.count == 0) {
+            return;
+        }
+        NSString* className = [dic objectForKey:classNameKey];
+        NSString* functionName = [[dic objectForKey:funcNameKey] stringByAppendingFormat:@":"];
+        NSDictionary *p = [dic objectForKey:parameterKey];
+        NSString* callBackFunc = [dic objectForKey:callBackFuncKey];
+        
+        Class cls = NSClassFromString(className);
+        if (!cls) {
+            DLog(@"找不到实现的类: %@",className);
+            return;
+        }
+        
+        SEL functionSelector = NSSelectorFromString(functionName);
+        if (!functionSelector) {
+            DLog(@"找不到方法: %@",functionName);
+            return;
+        }
+        
+        NSObject* obj = [[cls alloc] init];
+        if (![obj respondsToSelector:functionSelector]) {
+            DLog(@"在[%@]中找不到实现的方法: %@",className,functionName);
+            return;
+        }
+        
+        if ([obj isKindOfClass:[JSBase class]]) {
+            JSBase *jsbase = (JSBase *)obj;
+            jsbase.webView = self.wkwebView;
+            jsbase.callBackFunc = callBackFunc;
+            jsbase.className = className;
+            jsbase.functionName = functionName;
+        }
+        
+        SuppressPerformSelectorLeakWarning(
+            [obj performSelector:functionSelector withObject:p];
+        );
+    
     }
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:message.name message:str preferredStyle:UIAlertControllerStyleAlert];
-    [controller addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil]];
-    [self presentViewController:controller animated:YES completion:nil];
 }
 
 //兼容alert
@@ -187,42 +193,15 @@
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation
 {
     DLog(@"页面加载开始 url = %@", self.wkwebView.URL.absoluteString);
-    [self.activityIndicator startAnimating];
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     DLog(@"页面加载完成 url = %@", self.wkwebView.URL.absoluteString);
-    [self.activityIndicator stopAnimating];
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
 {
     DLog(@"页面加载失败 Url = %@", webView.URL.absoluteString);
-    [self.activityIndicator stopAnimating];
-}
-
-#pragma mark - Getter
-
-- (CAGradientLayer *)changeColorLayer{
-    if (!_changeColorLayer) {
-        _changeColorLayer = [CAGradientLayer layer];
-        _changeColorLayer.frame = CGRectMake(0, 64, 0, 4);
-        _changeColorLayer.startPoint = CGPointMake(0, 1);
-        _changeColorLayer.endPoint   = CGPointMake(1, 1);
-        _changeColorLayer.colors     = @[(__bridge id)[UIColor orangeColor].CGColor,
-                                         (__bridge id)[UIColor redColor].CGColor];
-    }
-    return _changeColorLayer;
-}
-
-- (UIActivityIndicatorView *)activityIndicator {
-    if (!_activityIndicator) {
-        _activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-        _activityIndicator.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
-        [_activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-        [self.view addSubview:_activityIndicator];
-    }
-    return _activityIndicator;
 }
 
 - (void)runJs:(NSString *)js handler:(void (^)(id _Nullable, NSError * _Nullable))completionHandler
@@ -231,4 +210,3 @@
 }
 
 @end
-

@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		34B5016E2073677900469A31 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 34B5016D2073677900469A31 /* test.html */; };
+		7F911DE52130FFCB0049D186 /* STKBaseWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F911DE32130FFCA0049D186 /* STKBaseWKWebViewController.m */; };
+		7F911DE821310C180049D186 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F911DE721310C180049D186 /* Camera.m */; };
+		7F911DEE213126690049D186 /* JSBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F911DED213126680049D186 /* JSBase.m */; };
+		7F911DF5213126EF0049D186 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F911DEF213126E70049D186 /* Login.m */; };
+		7F911DF7213126EF0049D186 /* QrCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F911DF4213126EC0049D186 /* QrCode.m */; };
+		7F911DF9213169930049D186 /* nomal.html in Resources */ = {isa = PBXBuildFile; fileRef = 7F911DF8213169920049D186 /* nomal.html */; };
 		9AAA5BEF1F5D01E90035A312 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA5BEE1F5D01E90035A312 /* main.m */; };
 		9AAA5BF21F5D01E90035A312 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA5BF11F5D01E90035A312 /* AppDelegate.m */; };
 		9AAA5BF51F5D01E90035A312 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AAA5BF41F5D01E90035A312 /* ViewController.m */; };
@@ -43,6 +49,17 @@
 
 /* Begin PBXFileReference section */
 		34B5016D2073677900469A31 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
+		7F911DE32130FFCA0049D186 /* STKBaseWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKBaseWKWebViewController.m; sourceTree = "<group>"; };
+		7F911DE42130FFCB0049D186 /* STKBaseWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKBaseWKWebViewController.h; sourceTree = "<group>"; };
+		7F911DE621310C180049D186 /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		7F911DE721310C180049D186 /* Camera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
+		7F911DEC213126680049D186 /* JSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBase.h; sourceTree = "<group>"; };
+		7F911DED213126680049D186 /* JSBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBase.m; sourceTree = "<group>"; };
+		7F911DEF213126E70049D186 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
+		7F911DF0213126E70049D186 /* QrCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QrCode.h; sourceTree = "<group>"; };
+		7F911DF3213126EB0049D186 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
+		7F911DF4213126EC0049D186 /* QrCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QrCode.m; sourceTree = "<group>"; };
+		7F911DF8213169920049D186 /* nomal.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = nomal.html; sourceTree = "<group>"; };
 		9AAA5BEA1F5D01E90035A312 /* WKWebViewJs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WKWebViewJs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AAA5BEE1F5D01E90035A312 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9AAA5BF01F5D01E90035A312 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -126,7 +143,16 @@
 				9AAA5BF11F5D01E90035A312 /* AppDelegate.m */,
 				9AAA5BF31F5D01E90035A312 /* ViewController.h */,
 				9AAA5BF41F5D01E90035A312 /* ViewController.m */,
+				7F911DE621310C180049D186 /* Camera.h */,
+				7F911DE721310C180049D186 /* Camera.m */,
+				7F911DF3213126EB0049D186 /* Login.h */,
+				7F911DEF213126E70049D186 /* Login.m */,
+				7F911DF0213126E70049D186 /* QrCode.h */,
+				7F911DF4213126EC0049D186 /* QrCode.m */,
+				7F911DEC213126680049D186 /* JSBase.h */,
+				7F911DED213126680049D186 /* JSBase.m */,
 				9AAA5BF61F5D01E90035A312 /* Main.storyboard */,
+				7F911DF8213169920049D186 /* nomal.html */,
 				34B5016D2073677900469A31 /* test.html */,
 				9AAA5BF91F5D01E90035A312 /* Assets.xcassets */,
 				9AAA5BFB1F5D01E90035A312 /* LaunchScreen.storyboard */,
@@ -169,6 +195,8 @@
 				9AAA5C221F5D037B0035A312 /* BaseWKWebViewController.m */,
 				9AAA5C231F5D037B0035A312 /* WeakScriptMessageDelegate.h */,
 				9AAA5C241F5D037B0035A312 /* WeakScriptMessageDelegate.m */,
+				7F911DE42130FFCB0049D186 /* STKBaseWKWebViewController.h */,
+				7F911DE32130FFCA0049D186 /* STKBaseWKWebViewController.m */,
 			);
 			path = Web;
 			sourceTree = "<group>";
@@ -249,12 +277,12 @@
 		9AAA5BE21F5D01E90035A312 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "王声远";
 				TargetAttributes = {
 					9AAA5BE91F5D01E90035A312 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = JPYH2GZ99G;
+						DevelopmentTeam = 7D5ZTC8VW5;
 						ProvisioningStyle = Automatic;
 					};
 					9AAA5C021F5D01E90035A312 = {
@@ -297,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34B5016E2073677900469A31 /* test.html in Resources */,
+				7F911DF9213169930049D186 /* nomal.html in Resources */,
 				9AAA5C2F1F5D03DE0035A312 /* back_black@3x.png in Resources */,
 				9AAA5BFD1F5D01E90035A312 /* LaunchScreen.storyboard in Resources */,
 				9AAA5BFA1F5D01E90035A312 /* Assets.xcassets in Resources */,
@@ -327,10 +356,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AAA5BF51F5D01E90035A312 /* ViewController.m in Sources */,
+				7F911DF7213126EF0049D186 /* QrCode.m in Sources */,
 				9AAA5BF21F5D01E90035A312 /* AppDelegate.m in Sources */,
 				9AAA5C251F5D037B0035A312 /* BaseWKWebViewController.m in Sources */,
+				7F911DF5213126EF0049D186 /* Login.m in Sources */,
+				7F911DE52130FFCB0049D186 /* STKBaseWKWebViewController.m in Sources */,
 				9AAA5C321F5D03DE0035A312 /* UIViewController+NavigationTool.m in Sources */,
+				7F911DEE213126690049D186 /* JSBase.m in Sources */,
 				9AAA5BEF1F5D01E90035A312 /* main.m in Sources */,
+				7F911DE821310C180049D186 /* Camera.m in Sources */,
 				9AAA5C261F5D037B0035A312 /* WeakScriptMessageDelegate.m in Sources */,
 				9AAA5C311F5D03DE0035A312 /* SYNavigationTool.m in Sources */,
 			);
@@ -397,15 +431,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -446,15 +488,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -483,8 +533,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = JPYH2GZ99G;
+				DEVELOPMENT_TEAM = 7D5ZTC8VW5;
 				INFOPLIST_FILE = WKWebViewJs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tronker.com.cn.WKWebViewJs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -495,8 +546,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = JPYH2GZ99G;
+				DEVELOPMENT_TEAM = 7D5ZTC8VW5;
 				INFOPLIST_FILE = WKWebViewJs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tronker.com.cn.WKWebViewJs;
 				PRODUCT_NAME = "$(TARGET_NAME)";

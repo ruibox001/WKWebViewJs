@@ -1,9 +1,9 @@
 //
-//  STKWeakScriptMessageDelegate.m
-//  Tronker
+//  WeakScriptMessageDelegate.m
+//  WKWebViewJs
 //
-//  Created by soffice-Jimmy on 2017/4/12.
-//  Copyright © 2017年 Shenzhen Soffice Software. All rights reserved.
+//  Created by 王声远 on 2018/8/25.
+//  Copyright © 2018年 王声远. All rights reserved.
 //
 
 #import "WeakScriptMessageDelegate.h"

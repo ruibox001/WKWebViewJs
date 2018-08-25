@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <title>JS和原生交互范例</title>
+</head>
+<body>
+    
+    <div id="msg2">
+        <p id="countent">JS和原生交互范例</p>
+    </div>
+    
+    <div id="camerabtn">
+        <a href="javascript:void(0);" onclick="callCamera()">调用摄像机</a>
+    </div>
+    
+    <div id="loginbtn">
+        <a href="javascript:void(0);" onclick="callLogin()">调用登录</a>
+    </div>
+    
+    <div id="qrcodebtn">
+        <a href="javascript:void(0);" onclick="callQRCode()">调用扫描</a>
+    </div>
+    
+    <script>
+        
+    function callCamera() {
+        if (window.webkit){ //苹果平台
+            window.webkit.messageHandlers.jsControl.postMessage
+            ({"className":"Camera","functionName":"cameraLog","callBackFunc": "callBackFunc","parameter":{'from':'js','name':'get camera info'}});
+        }
+    }
+
+    function callLogin() {
+        if (window.webkit){ //苹果平台
+            window.webkit.messageHandlers.jsControl.postMessage
+            ({"className":"Login","functionName":"loginLog","callBackFunc": "callBackFunc","parameter":{'from':'js','name':'get login info'}});
+        }
+    }
+
+    function callQRCode() {
+        if (window.webkit){ //苹果平台
+            window.webkit.messageHandlers.jsControl.postMessage
+            ({"className":"QrCode","functionName":"qrcodeLog","callBackFunc": "qrcodeCallBackFunc","parameter":{'from':'js','name':'get qrcode info'}});
+        }
+    }
+    
+    //摄像机回调
+    function cameraCallBackFunc(data) {
+        alert('【摄像机回调】'+data.msg);
+        return data.code;
+    }
+    
+    //登录回调
+    function loginCallBackFunc(data) {
+        alert('【登录回调】'+data.msg);
+        return data.code;
+    }
+    
+    //扫描回调
+    function qrcodeCallBackFunc(data) {
+        alert('【扫描回调】'+data.msg);
+        return data.code;
+    }
+    
+    //所有都可以使用通用回调，通过参数data字典字段判断是什么回调即可
+    function callBackFunc(data) {
+        alert('【通用回调】'+data.msg);
+        return data.code;
+    }
+    
+    </script>
+</body>
+</html>
