@@ -57,7 +57,7 @@ _Pragma("clang diagnostic pop") \
     
     [self initWKWebView];
     
-    [self addNavigationLeft:@"CallJs" clickBlock:^{
+    [self addNavigationRight:@"CallJs" clickBlock:^{
         [weakSelf runJs:@"callBackFunc({'msg':'原色执行完成回调JS','code':'200'})" handler:^(id _Nullable i, NSError * _Nullable error) {
             DLog(@"native call js finish callback: error=%@ - obj=%@",error,i);
         }];
@@ -110,7 +110,7 @@ _Pragma("clang diagnostic pop") \
 // 刷新
 - (void)request
 {
-    NSString *urlStr = [[NSBundle mainBundle] pathForResource:@"normal" ofType:@"html"];
+    NSString *urlStr = [[NSBundle mainBundle] pathForResource:@"nomal" ofType:@"html"];
     NSString *html = [NSString stringWithContentsOfFile:urlStr encoding:NSUTF8StringEncoding error:nil];
     [self.wkwebView loadHTMLString:html baseURL:nil];
 }
